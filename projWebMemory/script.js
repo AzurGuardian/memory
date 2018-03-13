@@ -1,15 +1,16 @@
-function nb_aleatoire(nb)
-{
-    nombre= Math.floor(Math.random() * nb)+1;
-}
+
 
 // variables*********
-nbc=12 //nombre de cartes multiple de 4
-non_im="imag" //début du nom des image => nomimage(n°).gif
 // n°= 00 image vide ou transparente - 0 dos carte - de 1 à 6 pour 12 cartes (6 paires)
 // il faut aussi une image gagne.gif
 
-tirage = new Array;//tirage aléatoire
+var Cartes = [];
+var CartesUsed = [];
+Cartes[0] = 'abyssWatcher'; Cartes[1] = 'Artorias'; Cartes[2] = 'duo' ;Cartes[3] = 'Lorian'; Cartes[4] = 'Midir'; Cartes[5] = 'Nameless'; Cartes[6] = 'Sif'; Cartes[7] = 'Sulyvahn'
+var carteDos = 'dos'
+
+
+
 place = new Array;
 choix=0;nbim2=0;nbim3=0;
 choixim=1
@@ -19,24 +20,30 @@ divs=nbc/2;
 nb=nbc+1;
 cpt=0;
 
-for (i=1 ;i<nb ;i++)
-{
-    nb_aleatoire(nbc);
-    tirage[i]= nombre;
-    for (t=1 ; t<i ;t++){
-        if (tirage[t]==nombre)
-        {
-            i=i-1;
-        }}}
-for (i=1 ;i<nb ;i++)
-{
-    if (tirage[i]>divs) nbtire=tirage[i]-divs;
-    else nbtire=tirage[i];
-    place[i]=nbtire;
+
+
+function initPlateau() {
+    document.write('<table>')
+    var rand
+    for (var iter = 0; iter < 2; iter++) {
+        for (var iter2 = 0; iter2 < 8; iter2++) {
+            rand = Math.random() * Cartes.length;
+            while (CartesUsed.indexOf(Cartes[rand]) == -1) {
+                rand = Math.random() * Cartes.length;
+            }
+            document.write('<td><a href="#" onClick="retourne(cpt)" id=Cartes[rand]><img src="' + Cartes[rand] + '.jpg" width="10%" height="20%" border="0"></a></td>');
+            CartesUsed.append(Cartes[rand]);
+            if (iter2 == 3 || (iter2 == 7 && iter == 0)) {
+                document.write('<tr>')
+            }
+        }
+        CartesUsed = [];
+    }
+    document.write('</table >')
 }
 
+function retourne(nbim) { //
 
-function change_im(nbim) { //
     if (place[nbim] !=0) {
         if (nbim==nbim2) nbim=0;
         else{
@@ -64,7 +71,8 @@ function efface(eff) {
     place[eff]=0}
 
 function no_efface(eff) {
-    document.images[eff-1].src = non_im+"0.gif";}
+    document.images[eff-1].src = non_im+"0.gif"
+}
 
 //-->
 </script>

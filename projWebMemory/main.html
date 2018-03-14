@@ -10,7 +10,34 @@
 <body>
 
 <script>
-    initPlateau();
+    var Cartes = [];
+    var CartesUsed = [];
+    var CartesFound = []
+    Cartes[0] = 'abyssWatcher'; Cartes[1] = 'Artorias'; Cartes[2] = 'duo' ;Cartes[3] = 'Lorian'; Cartes[4] = 'Midir'; Cartes[5] = 'Nameless'; Cartes[6] = 'Sif'; Cartes[7] = 'Sulyvahn'
+    var carteDos = 'dos'
+    var img1 = "";
+    var img2 = "";
+
+    document.write('<table align="center">')
+    var rand;
+    for (var iter = 0; iter < 2; iter++) {
+        for (var iter2 = 0; iter2 < 8; iter2++) {
+            rand =  Math.floor((Math.random() * Cartes.length),1);
+
+            while (CartesUsed.includes(Cartes[rand]) ) {
+                rand = Math.floor((Math.random() * Cartes.length),1);
+                console.log(rand)
+            }
+            console.log("hey")
+            document.write('<td><a href="#" onClick="retourne(this.id])" id=Cartes[rand]><img src="./res/' + Cartes[rand] + '.jpg" width="100" height="150" border="0"></a></td>');
+            CartesUsed.push(Cartes[rand]);
+            if (iter2 == 3 || (iter2 == 7 && iter == 0)) {
+                document.write('<tr>')
+            }
+        }
+        CartesUsed = [];
+    }
+    document.write('</table >')
 </script>
 
 </body>

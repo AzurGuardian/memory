@@ -6,9 +6,11 @@
 
 var Cartes = [];
 var CartesUsed = [];
+var CartesFound = []
 Cartes[0] = 'abyssWatcher'; Cartes[1] = 'Artorias'; Cartes[2] = 'duo' ;Cartes[3] = 'Lorian'; Cartes[4] = 'Midir'; Cartes[5] = 'Nameless'; Cartes[6] = 'Sif'; Cartes[7] = 'Sulyvahn'
 var carteDos = 'dos'
-
+var img1 = "";
+var img2 = "";
 
 
 place = new Array;
@@ -31,7 +33,7 @@ function initPlateau() {
             while (CartesUsed.indexOf(Cartes[rand]) == -1) {
                 rand = Math.random() * Cartes.length;
             }
-            document.write('<td><a href="#" onClick="retourne(cpt)" id=Cartes[rand]><img src="' + Cartes[rand] + '.jpg" width="10%" height="20%" border="0"></a></td>');
+            document.write('<td><a href="#" onClick="retourne(this.id])" id=Cartes[rand]><img src="./res/' + Cartes[rand] + '.jpg" width="10%" height="20%" border="0"></a></td>');
             CartesUsed.append(Cartes[rand]);
             if (iter2 == 3 || (iter2 == 7 && iter == 0)) {
                 document.write('<tr>')
@@ -42,9 +44,9 @@ function initPlateau() {
     document.write('</table >')
 }
 
-function retourne(nbim) { //
+function retourne(carte) { //
 
-    if (place[nbim] !=0) {
+    if (CartesFound.indexOf(carte) == -1) {
         if (nbim==nbim2) nbim=0;
         else{
             if (nbim==nbim3) nbim=0;

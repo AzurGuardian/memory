@@ -33,7 +33,7 @@ function initPlateau() {
             while (CartesUsed.indexOf(Cartes[rand]) == -1) {
                 rand = Math.random() * Cartes.length;
             }
-            document.write('<td><a href="#" onClick="retourne(this.id])" id=Cartes[rand]><img src="./res/' + Cartes[rand] + '.jpg" width="10%" height="20%" border="0"></a></td>');
+            document.write('<td><a href="#" onClick="retourne(this.id])" id=Cartes[rand]><img src="./res/dos.jpg" width="10%" height="20%" border="0"></a></td>');
             CartesUsed.append(Cartes[rand]);
             if (iter2 == 3 || (iter2 == 7 && iter == 0)) {
                 document.write('<tr>')

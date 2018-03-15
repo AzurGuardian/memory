@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Memory</title>
+
+
+</head>
+<body style="background-image:url(./res/abyssWalker1.jpg/)">
+<table  align="center"  > <td id="Coups" style="font-size: 20px; color: crimson; height: 50px;width: 300px;" ></td> <td id="Chrono" style="font-size: 20px; color: crimson; height: 50px;width: 50px"></td><td id="Paires" style="font-size: 20px; color: crimson; height: 50px;width: 300px;" > </table>
+<a href="Memory5x5.html"> <button style="alignment: center">Rejouer</button></a>
+
+<script>
+
+
+        var Cartes = [];
+        var CartesUsed = [];
+        var CartesFound = [];
+        Cartes[0] = 'abyssWatcher'; Cartes[1] = 'Artorias'; Cartes[2] = 'duo' ;Cartes[3] = 'Lorian'; Cartes[4] = 'Midir'; Cartes[5] = 'Nameless'; Cartes[6] = 'Sif'; Cartes[7] = 'Sulyvahn';Cartes[8] = 'Oceiros';Cartes[9] = 'Yorm';Cartes[10] = 'SoC',Cartes[11] = 'nashandra';Cartes[12] = 'sun';
+
+
+        var nbCartesR = [0,0,0,0,0,0,0,0,0,0,0,0,0];
+        var carte1 = ["a","a","a","a"];
+        var nbCoups = 0;
+        var plateau = "";
+        var bCarte = 0;
+        var Okay = false;
+        var Pairs = 0;
+
+        document.getElementById("Coups").innerHTML = "Nombre de Coups : "+nbCoups;
+        document.getElementById("Paires").innerHTML = "Nombre de Paires actuelles : "+Pairs+" sur "+Cartes.length;
+        document.write('<table align="center" id="board">')
+
+        for ( var b1 = 0; b1 < ((Cartes.length * 2)-1); b1++){
+
+            Okay = false;
+            bCarte = 0;
+            while(Okay === false){
+                var rand = Math.floor((Math.random() * Cartes.length),1);
+                if (nbCartesR[rand]<2){
+                    if (!(nbCartesR[rand] === 1 && rand === 12)  ){
+                        if (nbCartesR[rand] === 1){
+                            nbCartesR[rand] ++;
+                            bCarte = 1;
+                            Okay = true
+                        }else {
+                            nbCartesR[rand]++
+                            Okay = true
+                        }
+                    }
+                }
+                CartesUsed.push(Cartes[rand])
+            }if (bCarte === 0){
+
+                plateau += '<td><img onClick="retourne(this)" name="'+Cartes[rand]+'" id="0" src=\"./res/dos.jpg\" width=150 height=170 border=\"0\" ></td>'
+            }else
+            plateau += '<td><img onClick="retourne(this)" name="'+Cartes[rand]+'" id="1" src=\"./res/dos.jpg\" width=150 height=170 border=\"0\"></td>'
+
+
+            if (b1 === 4 || b1 === 9 || b1 === 14 || b1 === 19){
+                plateau += '<tr/>'
+            }
+        }
+        document.getElementById("board").innerHTML = plateau
+
+
+    function retourne(carte) {
+        document.getElementById("Coups").innerHTML = "Nombre de Coups : "+nbCoups;
+        document.getElementById("Paires").innerHTML = "Nombre de Paires actuelles : "+Pairs+" sur "+(Cartes.length-1);
+
+        if (!CartesFound.includes(carte)) {
+            console.log(carte1[0],carte1[1],carte1[2],carte1[3])
+            if (carte1[2] !== "a" && carte1[3] !== "a"){
+                cache(carte1);
+                carte1[0] = "a";
+                carte1[1] = "a";
+                carte1[2] = "a";
+                carte1[3] = "a";
+            }
+            if (carte1[0] !== "a") {
+                if (carte.getAttribute("name") === carte1[0]) {
+                    if (carte.getAttribute("id") == (1-carte1[1])) {
+                        document.getElementsByName(carte.getAttribute("name")).item(0).setAttribute("src", "./res/" +carte.getAttribute("name")+ ".jpg")
+                        document.getElementsByName(carte.getAttribute("name")).item(1).setAttribute("src", "./res/" +carte.getAttribute("name")+ ".jpg")
+                        CartesFound.push(document.getElementsByName(carte.getAttribute("name")).item(0))
+                        CartesFound.push(document.getElementsByName(carte.getAttribute("name")).item(1))
+                        console.log("hey")
+                        carte1[0] = "a";
+                        carte1[1] = "a";
+                        carte1[2] = "a";
+                        carte1[3] = "a";
+                        nbCoups++;
+                        Pairs++;
+                    }
+                } else {
+                    carte1[2] = carte.getAttribute("name");
+                    carte1[3] = carte.getAttribute("id");
+
+                    if (document.getElementsByName(carte1[2]).item(0).getAttribute("id") === carte1[3]){
+                        document.getElementsByName(carte1[2]).item(0).setAttribute("src", "./res/" +carte.getAttribute("name")+ ".jpg")
+                    }else {
+                        document.getElementsByName(carte1[2]).item(1).setAttribute("src", "./res/" +carte.getAttribute("name")+ ".jpg")
+                    }
+                    nbCoups++
+                }
+                if (Pairs === 12){
+                    alert("VOus avez fini la partie en "+nbCoups+" coups")
+                }
+
+            } else {
+                carte1[0] = carte.getAttribute("name");
+                carte1[1] = carte.getAttribute("id");
+
+                if (document.getElementsByName(carte1[0]).item(0).getAttribute("id") === carte1[1]){
+                    document.getElementsByName(carte1[0]).item(0).setAttribute("src", "./res/" +carte.getAttribute("name")+ ".jpg")
+                }else {
+                    document.getElementsByName(carte1[0]).item(1).setAttribute("src", "./res/" +carte.getAttribute("name")+ ".jpg")
+                }
+            }
+        }
+        console.log(carte1[0],carte1[1],carte1[2],carte1[3])
+    }
+
+    function cache(carte1) {
+        console.log("peut etre")
+
+        if(document.getElementsByName(carte1[0]).item(0).getAttribute("id") === carte1[1]){
+
+            document.getElementsByName(carte1[0]).item(0).setAttribute("src", "./res/dos.jpg")
+            console.log("yop")
+        }else{
+            document.getElementsByName(carte1[0]).item(1).setAttribute("src", "./res/dos.jpg")
+            console.log("yup")
+        }
+        if(document.getElementsByName(carte1[2]).item(0).getAttribute("id") === carte1[3]) {
+
+            document.getElementsByName(carte1[2]).item(0).setAttribute("src", "./res/dos.jpg")
+            console.log("yip")
+        }else{document.getElementsByName(carte1[2]).item(1).setAttribute("src", "./res/dos.jpg")
+            console.log("yap")
+        }
+    }
+
+
+
+
+
+</script>
+
+</body>
+</html>
